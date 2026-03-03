@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>استبانة الدراسة</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="brandMark">📋</div>
+        <div>
+          <h1>استبانة الدراسة</h1>
+          <p class="subtitle">دور الارتجال التنظيمي في إدارة الأزمات في ظل إعصار دانيال: دراسة ميدانية بمصلحة الطيران المدني – المنطقة الشرقية</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>تعليمات عامة</h2>
+      <p class="p">يرجى وضع علامة (✔) أمام درجة الموافقة التي تعبر عن رأيك. جميع البيانات سرية وتُستخدم لأغراض البحث العلمي فقط.</p>
+
+      <div class="notice">
+        <strong>يعتمد هذا الاستبيان على مقياس ليكرت الخماسي (1–5):</strong>
+        <div class="legend">
+          <span>1 لا أوافق بشدة</span>
+          <span>2 لا أوافق</span>
+          <span>3 محايد</span>
+          <span>4 أوافق</span>
+          <span>5 أوافق بشدة</span>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="consent" />
+        أوافق على المشاركة طوعًا، وأُقر بأن البيانات ستستخدم لأغراض البحث العلمي فقط.
+      </label>
+    </section>
+
+    <section class="card">
+      <form id="surveyForm" novalidate>
+        <div class="topRow">
+          <div class="field">
+            <label>كود المشارك (اختياري)</label>
+            <div class="inline">
+              <input type="text" id="participant_code" placeholder="اضغط توليد كود" inputmode="latin" />
+              <button type="button" class="btn secondary" id="genCodeBtn">توليد كود</button>
+            </div>
+            <small class="hint">يستخدم لمنع الإدخال المكرر دون ذكر الاسم.</small>
+          </div>
+
+          <div class="field">
+            <label>الجنس (اختياري)</label>
+            <select id="gender">
+              <option value="">— اختياري —</option>
+              <option value="1">ذكر</option>
+              <option value="2">أنثى</option>
+            </select>
+          </div>
+        </div>
+
+        <h2 class="sectionTitle">القسم الأول: البيانات الوظيفية (اختيارية)</h2>
+        <div class="grid">
+          <div class="field">
+            <label>المسمى الوظيفي</label>
+            <select id="job_title">
+              <option value="">— اختياري —</option>
+              <option value="1">مراقب جوي</option>
+              <option value="2">رئيس قسم</option>
+              <option value="3">رئيس وحدة برج</option>
+              <option value="4">رئيس وحدة مركز المعلومات</option>
+              <option value="5">غير ذلك</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>سنوات الخبرة</label>
+            <select id="experience">
+              <option value="">— اختياري —</option>
+              <option value="1">أقل من 5 سنوات</option>
+              <option value="2">من 5 إلى أقل من 10 سنوات</option>
+              <option value="3">من 10 إلى أقل من 15 سنة</option>
+              <option value="4">أكثر من 15 سنة</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>مكان العمل</label>
+            <select id="location">
+              <option value="">— اختياري —</option>
+              <option value="1">مطار بنينا</option>
+              <option value="2">مطار طبرق</option>
+              <option value="3">مطار الأبرق</option>
+              <option value="4">مركز ACC – مصلحة الطيران المدني</option>
+            </select>
+          </div>
+        </div>
+
+        <h2 class="sectionTitle">القسم الثاني: الارتجال التنظيمي</h2>
+        <div id="oiSection"></div>
+
+        <h2 class="sectionTitle">القسم الثالث: إدارة الأزمات</h2>
+        <div id="cmSection"></div>
+
+        <h2 class="sectionTitle">ملاحظات (اختياري)</h2>
+        <div class="field">
+          <label>ملاحظات إضافية</label>
+          <textarea id="notes" rows="3" placeholder="..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="submitBtn">إرسال الاستبانة</button>
+        </div>
+
+        <p class="footnote">* يجب اختيار درجة (1–5) لكل فقرة قبل الإرسال.</p>
+      </form>
+
+      <section class="card hidden" id="doneBox">
+        <h2>تم الاستلام ✅</h2>
+        <p class="p">شكرًا لك. تم إرسال إجاباتك بنجاح.</p>
+        <button class="btn secondary" id="newBtn" type="button">تعبئة استبانة جديدة</button>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© استبانة بحثية — للاستخدام الأكاديمي</small>
+    </div>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

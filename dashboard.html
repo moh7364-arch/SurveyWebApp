@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة تحكم الباحث</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="brand">
+        <div class="brandMark">📊</div>
+        <div>
+          <h1>لوحة تحكم الباحث</h1>
+          <p class="subtitle">إحصاءات وصفية (Mean / SD) ورسوم بيانية — تُعرض بعد تسجيل الدخول</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>تسجيل الدخول</h2>
+      <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+        <div class="field">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="email" placeholder="البريد المسجل في Firebase Authentication" />
+        </div>
+        <div class="field">
+          <label>كلمة المرور</label>
+          <input type="password" id="pass" placeholder="••••••••" />
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="loginBtn" type="button">دخول</button>
+        <button class="btn secondary" id="logoutBtn" type="button">خروج</button>
+      </div>
+      <p class="footnote">لا يمكن قراءة البيانات إلا للمستخدمين المسجلين دخولًا (Auth).</p>
+    </section>
+
+    <section class="card hidden" id="statsCard">
+      <div class="kpiGrid">
+        <div class="kpi"><div class="k">عدد الاستجابات</div><div class="v" id="kpiN">—</div></div>
+        <div class="kpi"><div class="k">متوسط الارتجال التنظيمي (إجمالي)</div><div class="v" id="kpiOI">—</div></div>
+        <div class="kpi"><div class="k">متوسط إدارة الأزمات (إجمالي)</div><div class="v" id="kpiCM">—</div></div>
+        <div class="kpi"><div class="k">آخر تحديث</div><div class="v" id="kpiUpdated">—</div></div>
+      </div>
+
+      <div class="block">
+        <h3>متوسطات الأبعاد والانحراف المعياري</h3>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>البعد</th>
+                <th>Mean</th>
+                <th>SD</th>
+                <th>N (عدد القيم)</th>
+              </tr>
+            </thead>
+            <tbody id="statsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="chartGrid">
+        <div class="block">
+          <h3>متوسطات الأبعاد</h3>
+          <canvas id="meansChart"></canvas>
+        </div>
+        <div class="block">
+          <h3>مقارنة المواقع (متوسط إدارة الأزمات)</h3>
+          <canvas id="locChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chartGrid">
+        <div class="block">
+          <h3>مقارنة الجنس (متوسط الحدس الإداري)</h3>
+          <canvas id="genderChart"></canvas>
+        </div>
+        <div class="block">
+          <h3>توزيع الاستجابات (عدد الاستجابات حسب المكان)</h3>
+          <canvas id="countLocChart"></canvas>
+        </div>
+      </div>
+
+      <p class="footnote">الرسوم إحصاءات وصفية أولية. التحليل الاستدلالي يُجرى لاحقًا في SPSS.</p>
+    </section>
+  </main>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>
