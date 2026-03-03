@@ -18,21 +18,23 @@ const oiSection = document.getElementById("oiSection");
 const cmSection = document.getElementById("cmSection");
 
 function genCode(){
-  // R + YYYYMMDDHHmmss (كود زمني مرتب)
+  // كود شديد التميّز: R + YYYYMMDDHHmmss + milliseconds(3) + random(2)
   const d = new Date();
-  const pad = (n)=> String(n).padStart(2,"0");
-  return "R" +
-    d.getFullYear() +
-    pad(d.getMonth()+1) +
-    pad(d.getDate()) +
-    pad(d.getHours()) +
-    pad(d.getMinutes()) +
-    pad(d.getSeconds());
-}
+  const pad2 = (n)=> String(n).padStart(2,"0");
+  const pad3 = (n)=> String(n).padStart(3,"0");
 
-genBtn.addEventListener("click", ()=>{
-  codeInput.value = genCode();
-});
+  const ts =
+    d.getFullYear() +
+    pad2(d.getMonth()+1) +
+    pad2(d.getDate()) +
+    pad2(d.getHours()) +
+    pad2(d.getMinutes()) +
+    pad2(d.getSeconds()) +
+    pad3(d.getMilliseconds()); // 000-999
+
+  const rnd = Math.floor(Math.random() * 100); // 00-99
+  return `R${ts}${pad2(rnd)}`; // مثال: R2026030410185598712
+}
 
 // ===== البنود كما في ملف الاستبيان =====
 const OI_BLOCKS = [
