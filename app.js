@@ -183,9 +183,6 @@ form.addEventListener("submit", async (e)=>{
   submitBtn.textContent = "جارٍ الإرسال...";
 
   try{
-    let code = (codeInput.value || "").trim().toUpperCase();
-    if (!code) code = genCode();
-
     // يقبل القديم R + 14 رقم (ثواني فقط) أو الجديد R + 19 رقم + 2 رقم
 const okOld = /^R\d{14}$/.test(code);
 const okNew = /^R\d{21}$/.test(code);
