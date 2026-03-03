@@ -186,10 +186,14 @@ form.addEventListener("submit", async (e)=>{
     let code = (codeInput.value || "").trim().toUpperCase();
     if (!code) code = genCode();
 
-    if (!/^R\d{14}$/.test(code)){
-      alert("صيغة الكود غير صحيحة. استخدم زر توليد كود.");
-      return;
-    }
+    // يقبل القديم R + 14 رقم (ثواني فقط) أو الجديد R + 19 رقم + 2 رقم
+const okOld = /^R\d{14}$/.test(code);
+const okNew = /^R\d{21}$/.test(code);
+
+if (!okOld && !okNew){
+  alert("صيغة الكود غير صحيحة. استخدم زر توليد كود.");
+  return;
+}
 
     const payload = {
       participant_code: code,
