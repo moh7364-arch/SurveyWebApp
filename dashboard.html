@@ -11,7 +11,8 @@
   <header class="header">
     <div class="container">
       <div class="brand">
-        <div class="brandMark">📊</div>
+        <!-- ضع شعارك في جذر المشروع باسم logo.png -->
+        <img src="logo.png" alt="Logo" class="logo" />
         <div>
           <h1>لوحة تحكم الباحث</h1>
           <p class="subtitle">إحصاءات وصفية (Mean / SD) ورسوم بيانية — تُعرض بعد تسجيل الدخول</p>
@@ -33,10 +34,15 @@
           <input type="password" id="pass" placeholder="••••••••" />
         </div>
       </div>
+
       <div class="actions">
         <button class="btn primary" id="loginBtn" type="button">دخول</button>
         <button class="btn secondary" id="logoutBtn" type="button">خروج</button>
+        <button class="btn secondary" id="csvBtn" type="button">تصدير CSV</button>
+        <button class="btn secondary" id="excelBtn" type="button">تصدير Excel</button>
+        <button class="btn secondary" id="pdfBtn" type="button">تصدير PDF</button>
       </div>
+
       <p class="footnote">لا يمكن قراءة البيانات إلا للمستخدمين المسجلين دخولًا (Auth).</p>
     </section>
 
@@ -93,4 +99,4 @@
 
   <script type="module" src="dashboard.js"></script>
 </body>
-</html>
+  </html>
