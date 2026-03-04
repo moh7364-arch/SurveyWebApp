@@ -12,6 +12,10 @@ const pass = document.getElementById("pass");
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 
+const csvBtn = document.getElementById("csvBtn");
+const excelBtn = document.getElementById("excelBtn");
+const pdfBtn = document.getElementById("pdfBtn");
+
 const statsCard = document.getElementById("statsCard");
 const statsBody = document.getElementById("statsBody");
 
@@ -21,6 +25,7 @@ const kpiCM = document.getElementById("kpiCM");
 const kpiUpdated = document.getElementById("kpiUpdated");
 
 let meansChart, locChart, genderChart, countLocChart;
+let cachedDocs = []; // للتصدير CSV/Excel
 
 function mean(arr){
   if (!arr.length) return null;
@@ -126,10 +131,10 @@ function renderCharts(statsRows, locationCompare, genderCompare, locationCounts)
 async function loadDashboard(){
   const snap = await getDocs(collection(db, "responses"));
   const docs = snap.docs.map(d=>d.data());
+  cachedDocs = docs;
 
   kpiN.textContent = String(docs.length);
   kpiUpdated.textContent = new Date().toLocaleString("ar");
-
   statsBody.innerHTML = "";
 
   const statsRows = SUBSCALES.map(sc=>{
@@ -205,8 +210,74 @@ async function loadDashboard(){
   statsCard.classList.remove("hidden");
 }
 
+/* ======= Export: CSV/Excel/PDF ======= */
+function downloadFile(filename, content, mime){
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function toCSV(docs){
+  const headers = [
+    "participant_code","gender","job_title","experience","location","submitted_at",
+    ...Array.from({length:25},(_,i)=>`OI${i+1}`),
+    ...Array.from({length:15},(_,i)=>`CM${i+1}`),
+    "notes"
+  ];
+
+  const escape = (v)=>{
+    const s = (v ?? "").toString().replaceAll('"','""');
+    return `"${s}"`;
+  };
+
+  const rows = docs.map(d=>{
+    const ans = d.answers || {};
+    const submitted =
+      d.submitted_at?.seconds ? new Date(d.submitted_at.seconds*1000).toISOString() : "";
+
+    return [
+      d.participant_code, d.gender, d.job_title, d.experience, d.location,
+      submitted,
+      ...Array.from({length:25},(_,i)=> ans[`OI${i+1}`] ?? ""),
+      ...Array.from({length:15},(_,i)=> ans[`CM${i+1}`] ?? ""),
+      d.notes ?? ""
+    ].map(escape).join(",");
+  });
+
+  return headers.join(",") + "\n" + rows.join("\n");
+}
+
+csvBtn?.addEventListener("click", ()=>{
+  if (!cachedDocs.length){ alert("لا توجد بيانات للتصدير."); return; }
+  const csv = toCSV(cachedDocs);
+  downloadFile("survey_export.csv", csv, "text/csv;charset=utf-8");
+});
+
+excelBtn?.addEventListener("click", ()=>{
+  if (!cachedDocs.length){ alert("لا توجد بيانات للتصدير."); return; }
+  const csv = toCSV(cachedDocs);
+  // Excel يفتح CSV حتى لو كان الامتداد xls
+  downloadFile("survey_export.xls", csv, "application/vnd.ms-excel");
+});
+
+pdfBtn?.addEventListener("click", ()=>{
+  window.print(); // حفظ كـ PDF من نافذة الطباعة
+});
+
+/* ======= Auth ======= */
 loginBtn.addEventListener("click", async ()=>{
-  await signInWithEmailAndPassword(auth, email.value.trim(), pass.value);
+  try{
+    await signInWithEmailAndPassword(auth, email.value.trim(), pass.value);
+  }catch(err){
+    console.error(err);
+    alert("فشل تسجيل الدخول:\n" + (err?.code ? `${err.code}: ${err.message}` : String(err)));
+  }
 });
 
 logoutBtn.addEventListener("click", async ()=>{
@@ -218,7 +289,7 @@ onAuthStateChanged(auth, (user)=>{
   if (user){
     loadDashboard().catch(err=>{
       console.error(err);
-      alert("تعذر تحميل لوحة التحكم. تأكد من قواعد Firestore ومن وجود بيانات.");
+      alert("تعذر تحميل لوحة التحكم:\n" + (err?.code ? `${err.code}: ${err.message}` : String(err)));
     });
   }
 });
