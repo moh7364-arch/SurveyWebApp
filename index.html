@@ -3,72 +3,160 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>استبانة الدراسة</title>
+  <title>الاستبانة العلمية</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <header class="header">
     <div class="container">
       <div class="brand">
-        <div class="brandMark">📋</div>
+        <img src="logo.png" alt="Logo" class="logo" />
         <div>
           <h1>استبانة الدراسة</h1>
-          <p class="subtitle">دور الارتجال التنظيمي في إدارة الأزمات في ظل إعصار دانيال: دراسة ميدانية بمصلحة الطيران المدني – المنطقة الشرقية</p>
+          <p class="subtitle">مصلحة الطيران المدني — المنطقة الشرقية</p>
         </div>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="card">
-      <h2>تعليمات عامة</h2>
-      <p class="p">يرجى وضع علامة (✔) أمام درجة الموافقة التي تعبر عن رأيك. جميع البيانات سرية وتُستخدم لأغراض البحث العلمي فقط.</p>
 
-      <div class="notice">
-        <strong>يعتمد هذا الاستبيان على مقياس ليكرت الخماسي (1–5):</strong>
-        <div class="legend">
-          <span>1 لا أوافق بشدة</span>
-          <span>2 لا أوافق</span>
-          <span>3 محايد</span>
-          <span>4 أوافق</span>
-          <span>5 أوافق بشدة</span>
+    <!-- الخطاب التمهيدي (جاهز للطباعة المؤسسية) -->
+    <section class="card introCard">
+      <div class="introTop">
+        <div class="officialBadge">وثيقة بحثية</div>
+        <div class="introMeta">
+          <div class="metaRow">
+            <span class="metaLabel">التاريخ:</span>
+            <span id="todayDate" class="metaValue">—</span>
+          </div>
         </div>
       </div>
 
-      <label class="consent">
+      <h2>خطاب تمهيدي</h2>
+
+      <p>السادة الكرام</p>
+      <p>تحية طيبة وبعد،،،</p>
+
+      <p>
+        في إطار استكمال متطلبات الحصول على درجة الماجستير، يتشرف الباحث بعرض هذه الاستبانة الموسومة بعنوان:
+      </p>
+
+      <div class="titleBox">
+        <div class="titleBoxInner">
+          <div class="titleLabel">عنوان الدراسة</div>
+          <div class="studyTitle">
+            "دور الارتجال التنظيمي في إدارة الأزمات في ظل إعصار دانيال: دراسة ميدانية بمصلحة الطيران المدني – المنطقة الشرقية"
+          </div>
+        </div>
+      </div>
+
+      <p>
+        وتسعى الدراسة إلى الوقوف على مستوى ممارسة الارتجال التنظيمي لدى العاملين، ومدى انعكاسه على فاعلية إدارة الأزمات
+        بمراحلها المختلفة، وذلك في ضوء التجربة المرتبطة بإعصار دانيال.
+      </p>
+
+      <p>
+        ونظرًا لما تمثلونه من خبرة مهنية ومعرفة عملية، فإن مشاركتكم تعد ذات أهمية علمية بالغة،
+        وعليه نأمل التكرم باستيفاء الاستبانة المرفقة بكل دقة وموضوعية.
+      </p>
+
+      <p>
+        كما يؤكد الباحث أن البيانات ستظل سرية بالكامل، وستستخدم حصريًا لأغراض البحث العلمي، دون الإشارة إلى أي معلومات شخصية.
+      </p>
+
+      <p>
+        شاكرين ومقدّرين تعاونكم.<br/>
+        وتفضلوا بقبول وافر الاحترام والتقدير.
+      </p>
+
+      <div class="signRow">
+        <div class="sigBlock">
+          <div class="sigLabel">اسم الباحث</div>
+          <div class="sigValue">[اسم الباحث]</div>
+        </div>
+
+        <div class="sigBlock">
+          <div class="sigLabel">المشرف العلمي</div>
+          <div class="sigValue">[اسم المشرف]</div>
+        </div>
+      </div>
+
+      <div class="signatureWrap">
+        <div class="sigLabel">التوقيع</div>
+        <!-- اختياري: ارفع صورة توقيع باسم signature.png -->
+        <img src="signature.png" alt="Signature" class="signatureImg"
+             onerror="this.style.display='none'; document.getElementById('sigFallback').style.display='block';" />
+        <div id="sigFallback" class="sigFallback" style="display:none;">
+          ________________________
+        </div>
+      </div>
+
+      <p class="footnote">
+        * ملاحظة: يمكن توليد “كود مشارك” اختياري لتتبع الاستجابة دون ذكر الاسم.
+      </p>
+    </section>
+
+    <!-- تعليمات + مقياس ليكرت -->
+    <section class="card">
+      <h2>تعليمات عامة</h2>
+      <p class="muted">
+        يرجى وضع علامة (✔) أمام درجة الموافقة التي تعبر عن رأيك. جميع البيانات سرية وتستخدم لأغراض البحث العلمي فقط.
+      </p>
+
+      <div class="notice">
+        <strong>يعتمد هذا الاستبيان على مقياس ليكرت الخماسي (1–5):</strong>
+      </div>
+
+      <div class="likertLegend">
+        <span class="pill">1 لا أوافق بشدة</span>
+        <span class="pill">2 لا أوافق</span>
+        <span class="pill">3 محايد</span>
+        <span class="pill">4 أوافق</span>
+        <span class="pill">5 أوافق بشدة</span>
+      </div>
+
+      <label class="checkRow">
         <input type="checkbox" id="consent" />
-        أوافق على المشاركة طوعًا، وأُقر بأن البيانات ستستخدم لأغراض البحث العلمي فقط.
+        <span>أوافق على المشاركة طوعًا، وأقر أن البيانات سرية وستستخدم لأغراض البحث العلمي فقط.</span>
       </label>
     </section>
 
+    <!-- بيانات عامة + كود -->
     <section class="card">
-      <form id="surveyForm" novalidate>
-        <div class="topRow">
-          <div class="field">
-            <label>كود المشارك (اختياري)</label>
-            <div class="inline">
-              <input type="text" id="participant_code" placeholder="اضغط توليد كود" inputmode="latin" />
-              <button type="button" class="btn secondary" id="genCodeBtn">توليد كود</button>
-            </div>
-            <small class="hint">يستخدم لمنع الإدخال المكرر دون ذكر الاسم.</small>
-          </div>
-
-          <div class="field">
-            <label>الجنس (اختياري)</label>
-            <select id="gender">
-              <option value="">— اختياري —</option>
-              <option value="1">ذكر</option>
-              <option value="2">أنثى</option>
-            </select>
-          </div>
+      <div class="grid3">
+        <div class="field">
+          <label>كود المشارك (اختياري)</label>
+          <input id="participant_code" placeholder="اضغط توليد كود" inputmode="latin" />
+          <small class="hint">يُستخدم لمنع التكرار دون ذكر الاسم.</small>
         </div>
 
-        <h2 class="sectionTitle">القسم الأول: البيانات الوظيفية (اختيارية)</h2>
-        <div class="grid">
+        <div class="field">
+          <label>توليد كود</label>
+          <button class="btn secondary" id="genCodeBtn" type="button">توليد كود</button>
+          <small class="hint">ينشئ كودًا فريدًا تلقائيًا.</small>
+        </div>
+
+        <div class="field">
+          <label>الجنس (اختياري)</label>
+          <select id="gender">
+            <option value="">—</option>
+            <option value="1">ذكر</option>
+            <option value="2">أنثى</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <form id="surveyForm" novalidate>
+      <section class="card">
+        <h2>القسم الأول: البيانات الوظيفية (اختياري)</h2>
+        <div class="grid3">
           <div class="field">
             <label>المسمى الوظيفي</label>
             <select id="job_title">
-              <option value="">— اختياري —</option>
+              <option value="">—</option>
               <option value="1">مراقب جوي</option>
               <option value="2">رئيس قسم</option>
               <option value="3">رئيس وحدة برج</option>
@@ -80,7 +168,7 @@
           <div class="field">
             <label>سنوات الخبرة</label>
             <select id="experience">
-              <option value="">— اختياري —</option>
+              <option value="">—</option>
               <option value="1">أقل من 5 سنوات</option>
               <option value="2">من 5 إلى أقل من 10 سنوات</option>
               <option value="3">من 10 إلى أقل من 15 سنة</option>
@@ -91,7 +179,7 @@
           <div class="field">
             <label>مكان العمل</label>
             <select id="location">
-              <option value="">— اختياري —</option>
+              <option value="">—</option>
               <option value="1">مطار بنينا</option>
               <option value="2">مطار طبرق</option>
               <option value="3">مطار الأبرق</option>
@@ -99,40 +187,50 @@
             </select>
           </div>
         </div>
-
-        <h2 class="sectionTitle">القسم الثاني: الارتجال التنظيمي</h2>
-        <div id="oiSection"></div>
-
-        <h2 class="sectionTitle">القسم الثالث: إدارة الأزمات</h2>
-        <div id="cmSection"></div>
-
-        <h2 class="sectionTitle">ملاحظات (اختياري)</h2>
-        <div class="field">
-          <label>ملاحظات إضافية</label>
-          <textarea id="notes" rows="3" placeholder="..."></textarea>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="btn primary" id="submitBtn">إرسال الاستبانة</button>
-        </div>
-
-        <p class="footnote">* يجب اختيار درجة (1–5) لكل فقرة قبل الإرسال.</p>
-      </form>
-
-      <section class="card hidden" id="doneBox">
-        <h2>تم الاستلام ✅</h2>
-        <p class="p">شكرًا لك. تم إرسال إجاباتك بنجاح.</p>
-        <button class="btn secondary" id="newBtn" type="button">تعبئة استبانة جديدة</button>
       </section>
+
+      <section class="card">
+        <h2>القسم الثاني: الارتجال التنظيمي</h2>
+        <div id="oiSection"></div>
+      </section>
+
+      <section class="card">
+        <h2>القسم الثالث: إدارة الأزمات</h2>
+        <div id="cmSection"></div>
+      </section>
+
+      <section class="card">
+        <h2>ملاحظات (اختياري)</h2>
+        <textarea id="notes" rows="4" placeholder="أي ملاحظة أو تعليق يساعد الباحث..."></textarea>
+      </section>
+
+      <div class="actions">
+        <button class="btn primary" id="submitBtn" type="submit">إرسال الاستبانة</button>
+      </div>
+    </form>
+
+    <section class="card hidden" id="doneBox">
+      <h2>تم الاستلام ✅</h2>
+      <p class="muted">شكرًا لك. تم إرسال استجابتك بنجاح.</p>
+      <button class="btn secondary" id="newBtn" type="button">إرسال استجابة جديدة</button>
     </section>
+
+    <footer class="footer">
+      <div class="muted">© استبانة بحثية — للاستخدام الأكاديمي.</div>
+    </footer>
+
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <small>© استبانة بحثية — للاستخدام الأكاديمي</small>
-    </div>
-  </footer>
+  <script>
+    // تاريخ تلقائي بصياغة عربية
+    (function(){
+      const el = document.getElementById("todayDate");
+      if (!el) return;
+      const d = new Date();
+      el.textContent = d.toLocaleDateString("ar", { year:"numeric", month:"long", day:"numeric" });
+    })();
+  </script>
 
   <script type="module" src="app.js"></script>
 </body>
-</html>
+  </html>
