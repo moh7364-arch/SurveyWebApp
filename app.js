@@ -35,9 +35,9 @@ function genCode() {
     pad2(d.getHours()) +
     pad2(d.getMinutes()) +
     pad2(d.getSeconds()) +
-    pad3(d.getMilliseconds()); // 000-999
+    pad3(d.getMilliseconds());
 
-  const rnd = Math.floor(Math.random() * 100); // 00-99
+  const rnd = Math.floor(Math.random() * 100);
   return `R${ts}${pad2(rnd)}`;
 }
 
@@ -45,7 +45,7 @@ genBtn.addEventListener("click", () => {
   codeInput.value = genCode();
 });
 
-// ===== البنود كما في ملف الاستبيان =====
+// ===== البنود =====
 const OI_BLOCKS = [
   {
     title: "بُعد الحدس الإداري",
@@ -60,7 +60,7 @@ const OI_BLOCKS = [
   {
     title: "بُعد بناء الحل",
     items: [
-      "امتلك القدرة على تطوير حلول بديلة عند تعطل الإجراءات التقليدية.",
+      "أمتلك القدرة على تطوير حلول بديلة عند تعطل الإجراءات التقليدية.",
       "أستطيع تعديل الإجراءات التشغيلية بما ينسجم مع الوضع الطارئ.",
       "أستخدم الموارد المتاحة بطرق مناسبة لمعالجة الأزمة.",
       "أساهم في بناء حلول فورية تضمن استمرار العمل أثناء الأزمة.",
@@ -83,8 +83,8 @@ const OI_BLOCKS = [
       "أستطيع اتخاذ إجراءات فورية عند حدوث ظرف طارئ.",
       "لدي مقدرة للاستجابة السريعة للمواقف المفاجئة دون تردد.",
       "أتفاعل مباشرة مع أي خلل تشغيلي دون انتظار تعليمات.",
-      "أستطيع تغيير طريقة عملي تلقائيًا بما يناسب مع الموقف الطارئ.",
-      "امتلك قدرة لتأدية عملي بكفاءة حتى تحت ضغط الوقت."
+      "أستطيع تغيير طريقة عملي تلقائيًا بما يناسب الموقف الطارئ.",
+      "أمتلك قدرة على تأدية عملي بكفاءة حتى تحت ضغط الوقت."
     ]
   },
   {
@@ -168,12 +168,10 @@ function renderBlocks(target, blocks, prefix) {
     });
     target.appendChild(block);
   });
-  return idx;
 }
 
-// Render OI1..OI25 and CM1..CM15
-renderBlocks(oiSection, OI_BLOCKS, "OI");
-renderBlocks(cmSection, CM_BLOCKS, "CM");
+renderBlocks(oiSection, OI_BLOCKS, "OI"); // OI1..OI25
+renderBlocks(cmSection, CM_BLOCKS, "CM"); // CM1..CM15
 
 function collect(prefix, count) {
   const out = {};
@@ -196,17 +194,14 @@ form.addEventListener("submit", async (e) => {
   submitBtn.textContent = "جارٍ الإرسال...";
 
   try {
-    // احصل على الكود أو ولّد واحدًا وثبّته في الخانة
     let code = (codeInput.value || "").trim().toUpperCase();
     if (!code) {
       code = genCode();
       codeInput.value = code;
     }
 
-    // يقبل القديم R + 14 رقم أو الجديد R + 19 رقم
     const okOld = /^R\d{14}$/.test(code);
     const okNew = /^R\d{19}$/.test(code);
-
     if (!okOld && !okNew) {
       alert("صيغة الكود غير صحيحة. استخدم زر توليد كود.");
       return;
@@ -226,16 +221,14 @@ form.addEventListener("submit", async (e) => {
       }
     };
 
-    // منع الإدخال المكرر يعتمد على Firestore Rules (create only)
     await setDoc(doc(db, "responses", code), payload);
 
     form.classList.add("hidden");
     doneBox.classList.remove("hidden");
   } catch (err) {
     console.error(err);
-    alert(
-      "تعذر الإرسال. غالبًا الكود مستخدم مسبقًا. اضغط توليد كود جديد ثم أعد الإرسال."
-    );
+    const msg = err?.code ? `${err.code}: ${err.message}` : String(err);
+    alert("تعذر الإرسال:\n" + msg);
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = "إرسال الاستبانة";
